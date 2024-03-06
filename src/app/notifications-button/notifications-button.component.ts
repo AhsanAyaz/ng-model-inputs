@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-notifications-button',
   standalone: true,
   templateUrl: './notifications-button.component.html',
   styleUrls: ['./notifications-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsButtonComponent {
-  @Input() count = 0;
+  count = input(0);
 }

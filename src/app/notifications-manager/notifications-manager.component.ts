@@ -1,30 +1,27 @@
-import { Component, EventEmitter, Input, Output, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model } from '@angular/core';
 
 @Component({
   selector: 'app-notifications-manager',
   standalone: true,
   templateUrl: './notifications-manager.component.html',
   styleUrls: ['./notifications-manager.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsManagerComponent {
-  @Input() count = 0;
-  @Output() countChanged = new EventEmitter<number>();
+  count = model(0);
 
   addNotification() {
-    this.count++;
-    this.countChanged.emit(this.count);
+    this.count.update((count) => count + 1);
   }
 
   removeNotification() {
-    if (this.count == 0) {
+    if (this.count() == 0) {
       return;
     }
-    this.count--;
-    this.countChanged.emit(this.count);
+    this.count.update((count) => count - 1);
   }
 
   resetCount() {
-    this.count = 0;
-    this.countChanged.emit(this.count);
+    this.count.set(0);
   }
 }
